@@ -13,9 +13,9 @@ export default class Day extends React.Component {
   render() {
     if (!isSameDay(this.props.currentMessage, this.props.previousMessage)) {
       return (
-        <View style={[styles.container, this.props.containerStyle]}>
-          <View style={[styles.wrapper, this.props.wrapperStyle]}>
-            <Text style={[styles.text, this.props.textStyle]}>
+        <View style={[styles.container, this.props.dayContainerStyle]}>
+          <View style={[styles.wrapper, this.props.dayWrapperStyle]}>
+            <Text style={[styles.text, this.props.dayTextStyle]}>
               {moment(this.props.currentMessage.createdAt).locale(this.context.getLocale()).format('ll').toUpperCase()}
             </Text>
           </View>
@@ -28,6 +28,7 @@ export default class Day extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 5,
@@ -70,9 +71,9 @@ Day.defaultProps = {
 Day.propTypes = {
   currentMessage: React.PropTypes.object,
   previousMessage: React.PropTypes.object,
-  containerStyle: View.propTypes.style,
-  wrapperStyle: View.propTypes.style,
-  textStyle: Text.propTypes.style,
+  dayContainerStyle: View.propTypes.style,
+  dayWrapperStyle: View.propTypes.style,
+  dayTextStyle: Text.propTypes.style,
   //TODO: remove in next major release
   isSameDay: React.PropTypes.func,
   isSameUser: React.PropTypes.func,
