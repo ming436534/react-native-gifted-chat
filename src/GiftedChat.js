@@ -5,6 +5,7 @@ import {
   Platform,
   StyleSheet,
   View,
+  Text,
 } from 'react-native';
 
 import ActionSheet from '@expo/react-native-action-sheet';
