@@ -547,6 +547,9 @@ GiftedChat.propTypes = {
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
   keyboardShouldPersistTaps: React.PropTypes.oneOf(['always', 'never', 'handled']),
+  dayContainerStyle: View.propTypes.style,
+  dayWrapperStyle: View.propTypes.style,
+  dayTextStyle: Text.propTypes.style,
 };
 
 export {
