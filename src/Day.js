@@ -1,22 +1,26 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
+  ViewPropTypes,
 } from 'react-native';
 
-import moment from 'moment/min/moment-with-locales.min';
+import moment from 'moment';
 
 import { isSameDay, isSameUser, warnDeprecated } from './utils';
 
 export default class Day extends React.Component {
   render() {
+    const { dateFormat } = this.props;
+
     if (!isSameDay(this.props.currentMessage, this.props.previousMessage)) {
       return (
         <View style={[styles.container, this.props.dayContainerStyle]}>
           <View style={[styles.wrapper, this.props.dayWrapperStyle]}>
             <Text style={[styles.text, this.props.dayTextStyle]}>
-              {moment(this.props.currentMessage.createdAt).locale(this.context.getLocale()).format('ll').toUpperCase()}
+              {moment(this.props.currentMessage.createdAt).locale(this.context.getLocale()).format(dateFormat).toUpperCase()}
             </Text>
           </View>
         </View>
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
 });
 
 Day.contextTypes = {
-  getLocale: React.PropTypes.func,
+  getLocale: PropTypes.func,
 };
 
 Day.defaultProps = {
@@ -69,12 +73,21 @@ Day.defaultProps = {
 };
 
 Day.propTypes = {
+<<<<<<< HEAD
   currentMessage: React.PropTypes.object,
   previousMessage: React.PropTypes.object,
   dayContainerStyle: View.propTypes.style,
   dayWrapperStyle: View.propTypes.style,
   dayTextStyle: Text.propTypes.style,
+=======
+  currentMessage: PropTypes.object,
+  previousMessage: PropTypes.object,
+  containerStyle: ViewPropTypes.style,
+  wrapperStyle: ViewPropTypes.style,
+  textStyle: Text.propTypes.style,
+>>>>>>> e7fdf437faf1baad6c1d51b2ac52a22ed6bd7892
   //TODO: remove in next major release
-  isSameDay: React.PropTypes.func,
-  isSameUser: React.PropTypes.func,
+  isSameDay: PropTypes.func,
+  isSameUser: PropTypes.func,
+  dateFormat: PropTypes.string,
 };

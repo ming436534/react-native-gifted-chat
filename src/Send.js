@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  ViewPropTypes,
 } from 'react-native';
 
 export default class Send extends React.Component {
@@ -23,7 +25,9 @@ export default class Send extends React.Component {
           }}
           accessibilityTraits="button"
         >
-          <Text style={[styles.text, this.props.textStyle]}>{this.props.label}</Text>
+          <View>
+            {this.props.children || <Text style={[styles.text, this.props.textStyle]}>{this.props.label}</Text>}
+          </View>
         </TouchableOpacity>
       );
     }
@@ -56,9 +60,9 @@ Send.defaultProps = {
 };
 
 Send.propTypes = {
-  text: React.PropTypes.string,
-  onSend: React.PropTypes.func,
-  label: React.PropTypes.string,
-  containerStyle: View.propTypes.style,
+  text: PropTypes.string,
+  onSend: PropTypes.func,
+  label: PropTypes.string,
+  containerStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
 };
