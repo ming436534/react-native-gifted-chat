@@ -11,7 +11,7 @@ import moment from 'moment';
 
 import { isSameDay, isSameUser, warnDeprecated } from './utils';
 
-export default class Day extends React.Component {
+export default class Day extends Component {
   render() {
     const { dateFormat } = this.props;
 
@@ -73,8 +73,8 @@ Day.defaultProps = {
 };
 
 Day.propTypes = {
-  currentMessage: React.PropTypes.object,
-  previousMessage: React.PropTypes.object,
+  currentMessage: PropTypes.object,
+  previousMessage: PropTypes.object,
   dayContainerStyle: View.propTypes.style,
   dayWrapperStyle: View.propTypes.style,
   dayTextStyle: Text.propTypes.style,
