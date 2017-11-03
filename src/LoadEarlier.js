@@ -46,7 +46,7 @@ export default class LoadEarlier extends React.Component {
         disabled={this.props.isLoadingEarlier === true}
         accessibilityTraits="button"
       >
-        <View style={[styles.wrapper, this.props.wrapperStyle]}>
+        <View style={[styles.wrapper, this.props.loadEarlierWrapperStyle]}>
           {this.renderLoading()}
         </View>
       </TouchableOpacity>
@@ -87,8 +87,8 @@ LoadEarlier.defaultProps = {
   isLoadingEarlier: false,
   label: 'Load earlier messages',
   containerStyle: {},
-  wrapperStyle: {},
   textStyle: {},
+  loadEarlierWrapperStyle: {},
   activityIndicatorStyle: {},
 };
 
@@ -97,7 +97,7 @@ LoadEarlier.propTypes = {
   isLoadingEarlier: PropTypes.bool,
   label: PropTypes.string,
   containerStyle: ViewPropTypes.style,
-  wrapperStyle: ViewPropTypes.style,
+  loadEarlierWrapperStyle: ViewPropTypes.style,
   textStyle: Text.propTypes.style,
   activityIndicatorStyle: ViewPropTypes.style,
 };
