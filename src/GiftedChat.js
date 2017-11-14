@@ -606,6 +606,8 @@ GiftedChat.propTypes = {
   onInputTextChanged: PropTypes.func,
   maxInputLength: PropTypes.number,
   forceGetKeyboardHeight: PropTypes.bool,
+  keysMapper: PropTypes.func,
+  blobReducer: PropTypes.func,
 };
 
 export {

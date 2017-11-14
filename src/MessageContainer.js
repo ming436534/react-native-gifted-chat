@@ -34,22 +34,26 @@ export default class MessageContainer extends React.Component {
     };
   }
 
-  prepareMessages(messages) {
+  prepareMessages(messages = []) {
+    const {keysMapper, blobReducer} = this.props;
+    let keys = messages.map(keysMapper || (m => m._id));
+    const reducer = blobReducer || ((o, m, i) => {
+      const previousMessage = messages[i + 1] || {};
+      const nextMessage = messages[i - 1] || {};
+      // add next and previous messages to hash to ensure updates
+      const toHash = JSON.stringify(m) + previousMessage._id + nextMessage._id;
+      o[m._id] = {
+        ...m,
+        previousMessage,
+        nextMessage,
+        hash: md5(toHash)
+      };
+      return o;
+    });
+    let blob = messages.reduce(reducer, {});
     return {
-      keys: messages.map(m => m._id),
-      blob: messages.reduce((o, m, i) => {
-        const previousMessage = messages[i + 1] || {};
-        const nextMessage = messages[i - 1] || {};
-        // add next and previous messages to hash to ensure updates
-        const toHash = JSON.stringify(m) + previousMessage._id + nextMessage._id;
-        o[m._id] = {
-          ...m,
-          previousMessage,
-          nextMessage,
-          hash: md5(toHash)
-        };
-        return o;
-      }, {})
+      keys: keys,
+      blob: blob
     };
   }
 
