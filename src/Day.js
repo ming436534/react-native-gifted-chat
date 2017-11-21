@@ -75,8 +75,8 @@ Day.defaultProps = {
 Day.propTypes = {
   currentMessage: PropTypes.object,
   previousMessage: PropTypes.object,
-  dayContainerStyle: View.propTypes.style,
-  dayWrapperStyle: View.propTypes.style,
+  dayContainerStyle: ViewPropTypes.style,
+  dayWrapperStyle: ViewPropTypes.style,
   dayTextStyle: Text.propTypes.style,
   //TODO: remove in next major release
   isSameDay: PropTypes.func,
