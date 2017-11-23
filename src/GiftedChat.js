@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
   Text,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import ActionSheet from '@expo/react-native-action-sheet';
@@ -29,6 +30,7 @@ import Send from './Send';
 import Time from './Time';
 import GiftedAvatar from './GiftedAvatar';
 import GiftedChatInteractionManager from './GiftedChatInteractionManager';
+import KeyboardAvoidingViewAndroid from './KeyboardAvoidingViewAndroid';
 
 // Min and max heights of ToolbarInput and Composer
 // Needed for Composer auto grow and ScrollView animation
@@ -38,6 +40,7 @@ const MIN_COMPOSER_HEIGHT = Platform.select({
   android: 41,
 });
 const MAX_COMPOSER_HEIGHT = 100;
+const WrapperView = Platform.OS === 'android' ? KeyboardAvoidingViewAndroid : KeyboardAvoidingView;
 
 class GiftedChat extends React.Component {
   constructor(props) {
@@ -305,9 +308,7 @@ class GiftedChat extends React.Component {
   renderMessages() {
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
     return (
-      <AnimatedView style={{
-        height: this.state.messagesContainerHeight,
-      }}>
+      
         <MessageContainer
           {...this.props}
 
@@ -317,8 +318,7 @@ class GiftedChat extends React.Component {
 
           ref={component => this._messageContainerRef = component}
         />
-        {this.renderChatFooter()}
-      </AnimatedView>
+        
     );
   }
 
@@ -476,14 +476,24 @@ class GiftedChat extends React.Component {
     return null;
   }
 
+  renderHeader() {
+    if (this.props.renderHeader) return this.props.renderHeader();
+  }
+
   render() {
     if (this.state.isInitialized === true) {
       return (
         <ActionSheet ref={component => this._actionSheetRef = component}>
-          <View style={styles.container} onLayout={this.onMainViewLayout}>
+          <WrapperView
+            behavior={Platform.OS === 'android' ? 'height' : 'padding'}
+            keyboardVerticalOffset={this.props.keyboardVerticalOffset}
+            style={Platform.OS === 'ios' ? StyleSheet.absoluteFill : { flex: 1 }}
+          >
+            {this.renderHeader()}
             {this.renderMessages()}
+            {this.renderChatFooter()}
             {this.renderInputToolbar()}
-          </View>
+          </WrapperView>
         </ActionSheet>
       );
     }

@@ -3,6 +3,7 @@ import React from 'react';
 
 import {
   ListView,
+  FlatList,
   View,
   StyleSheet,
 } from 'react-native';
@@ -30,7 +31,9 @@ export default class MessageContainer extends React.Component {
 
     const messagesData = this.prepareMessages(props.messages);
     this.state = {
-      dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys)
+      dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys),
+      blob: messagesData.blob,
+      keys: messagesData.keys,
     };
   }
 
@@ -73,7 +76,9 @@ export default class MessageContainer extends React.Component {
     }
     const messagesData = this.prepareMessages(nextProps.messages);
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(messagesData.blob, messagesData.keys)
+      dataSource: this.state.dataSource.cloneWithRows(messagesData.blob, messagesData.keys),
+      blob: messagesData.blob,
+      keys: messagesData.keys,
     });
   }
 
@@ -106,7 +111,8 @@ export default class MessageContainer extends React.Component {
     this._invertibleScrollViewRef.scrollTo(options);
   }
 
-  renderRow(message, sectionId, rowId) {
+  renderRow({item}) {
+    let message = this.state.blob[item];
     if (!message._id && message._id !== 0) {
       console.warn('GiftedChat: `_id` is missing for message', JSON.stringify(message));
     }
@@ -149,20 +155,19 @@ export default class MessageContainer extends React.Component {
         ref='container'
         style={styles.container}
       >
-        <ListView
+        <FlatList
           enableEmptySections={true}
           automaticallyAdjustContentInsets={false}
           initialListSize={20}
           pageSize={20}
-
           {...this.props.listViewProps}
-
-          dataSource={this.state.dataSource}
-
-          renderRow={this.renderRow}
-          renderHeader={this.renderFooter}
+          data={this.state.keys}
+          keyExtractor={k => k}
+          renderItem={this.renderRow}
+          ListHeaderComponent={this.renderFooter()}
+          ListFooterComponent={this.renderLoadEarlier()}
           renderFooter={this.renderLoadEarlier}
-          renderScrollComponent={this.renderScrollComponent}
+          inverted
         />
       </View>
     );
