@@ -153,10 +153,11 @@ export default class MessageContainer extends React.Component {
     return (
       <View
         ref='container'
-        style={styles.container}
+        style={[styles.container, this.props.messageContainerStyle]}
       >
         <FlatList
           ref={(r) => {this._flatListRef = r;}}
+          style={this.props.listStyle}
           enableEmptySections={true}
           automaticallyAdjustContentInsets={false}
           initialListSize={20}

@@ -69,7 +69,7 @@ export default class MessageText extends React.Component {
     return (
       <View style={[styles[this.props.position].container, this.props.containerStyle[this.props.position]]}>
         <ParsedText
-          style={[styles[this.props.position].text, this.props.textStyle[this.props.position], this.props.customTextStyle]}
+          style={[styles[this.props.position].text, this.props.bubbleTextStyle[this.props.position], this.props.customTextStyle]}
           parse={[
             ...this.props.parsePatterns(linkStyle),
             {type: 'url', style: linkStyle, onPress: this.onUrlPress},
@@ -143,7 +143,7 @@ MessageText.propTypes = {
     left: ViewPropTypes.style,
     right: ViewPropTypes.style,
   }),
-  textStyle: PropTypes.shape({
+  bubbleTextStyle: PropTypes.shape({
     left: Text.propTypes.style,
     right: Text.propTypes.style,
   }),

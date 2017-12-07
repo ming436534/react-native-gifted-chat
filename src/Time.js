@@ -13,7 +13,7 @@ export default class Time extends React.Component {
   render() {
     return (
       <View style={[styles[this.props.position].container, this.props.containerStyle[this.props.position]]}>
-        <Text style={[styles[this.props.position].text, this.props.textStyle[this.props.position]]}>
+        <Text style={[styles[this.props.position].text, this.props.bubbleTimeTextStyle[this.props.position]]}>
           {moment(this.props.currentMessage.createdAt).locale(this.context.getLocale()).format(this.props.timeFormat)}
         </Text>
       </View>
